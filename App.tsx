@@ -363,7 +363,7 @@ const App: React.FC = () => {
         </header>
 
         <div className="flex-1 overflow-y-auto grid-bg p-8 custom-scrollbar-main text-left">
-          <div className="max-w-7xl mx-auto pb-12">
+          <div className={`${currentView === AppView.BID_WORKSPACE ? 'max-w-full px-2' : 'max-w-7xl mx-auto'} pb-12 transition-all duration-500`}>
             {renderView()}
           </div>
         </div>
