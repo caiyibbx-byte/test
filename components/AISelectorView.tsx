@@ -36,7 +36,9 @@ import {
   Edit2,
   Trash2,
   Check,
-  Layout
+  Layout,
+  PanelRightClose,
+  PanelRightOpen
 } from 'lucide-react';
 
 interface AISelectorViewProps {
@@ -71,6 +73,7 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
   const [onlyValid, setOnlyValid] = useState(true);
   const [detailLot, setDetailLot] = useState<any | null>(null);
   const [viewMode, setViewMode] = useState<'card' | 'excel'>('excel');
+  const [showSidebar, setShowSidebar] = useState(true);
 
   // 规则引擎状态
   const [rules, setRules] = useState<RecRule[]>([
@@ -145,9 +148,11 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
   const tenderPool = [
     { 
       id: 'ai-t1', 
+      projectId: 'SG-HQ-2026-001',
       title: '特高压自动化系统扩建及数字化平台升级项目', 
       purchaser: '国家电网有限公司', 
-      deadline: '2026-10-25 10:00', 
+      deadline: '2026-10-20 16:00', 
+      openingTime: '2026-10-25 10:00',
       match: 98, 
       tag: '极高匹配',
       lots: [{ 
@@ -160,23 +165,27 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
     },
     { 
       id: 'ai-t4', 
+      projectId: 'HB-XA-2026-004',
       title: '国网雄安新区智慧配电网一期示范工程', 
       purchaser: '国网河北电力', 
-      deadline: '2026-11-05 16:00', 
+      deadline: '2026-11-01 16:00', 
+      openingTime: '2026-11-05 16:00',
       match: 94, 
       tag: '重点抢标',
       lots: [{ 
         subBidNumber: 'HB-XA-2026-02', subBidName: '智慧配电感知分标', lotNumber: '包2', lotName: '边缘计算网关及二次回路改造', 
         scope: '对雄安新区起步区 10kV 开闭所进行边缘计算网关部署。',
-        qualifications: '电子与智能化工程专业承包二级及以上。', experience: '具有智慧城市或智能配网相关实施案例。',
+        qualifications: '电子与智能化工程专业承包二级及以上。', experience: '具有智慧城市 or 智能配网相关实施案例。',
         personnel: '核心成员需具备 Linux 嵌入式开发或运维认证。', duration: '180 日历天', location: '雄安新区起步区', maxPrice: '650.00', estAmount: '620.00', quoteMethod: '总价报固定单价'
       }]
     },
     { 
       id: 'ai-t2', 
+      projectId: 'JS-ST-2026-002',
       title: '苏通大桥跨江塔基及输电线路维护服务', 
       purchaser: '国网江苏电力', 
-      deadline: '2026-06-15 14:00', 
+      deadline: '2026-06-10 14:00', 
+      openingTime: '2026-06-15 14:00',
       match: 86, 
       tag: '高匹配',
       lots: [{ 
@@ -188,9 +197,11 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
     },
     { 
       id: 'ai-t3', 
+      projectId: 'ZJ-RENT-2026-003',
       title: '2026年配网不停电作业工具批量租赁项目', 
       purchaser: '国网浙江电力', 
-      deadline: '2026-08-20 09:00', 
+      deadline: '2026-08-15 09:00', 
+      openingTime: '2026-08-20 09:00',
       match: 81, 
       tag: '建议参与',
       lots: [{ 
@@ -213,7 +224,16 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
         const searchStr = `${tender.title} ${lot.lotName} ${tender.purchaser} ${tender.tag}`.toLowerCase();
         if (keyword && !searchStr.includes(keyword.toLowerCase())) return;
         rows.push({
-          ...lot, tenderTitle: tender.title, purchaser: tender.purchaser, deadline: tender.deadline, match: tender.match, tag: tender.tag, isValid, combinedId: `${tender.id}_${lot.lotNumber}`
+          ...lot, 
+          projectId: tender.projectId,
+          tenderTitle: tender.title, 
+          purchaser: tender.purchaser, 
+          deadline: tender.deadline, 
+          openingTime: tender.openingTime,
+          match: tender.match, 
+          tag: tender.tag, 
+          isValid, 
+          combinedId: `${tender.id}_${lot.lotNumber}`
         });
       });
     });
@@ -411,6 +431,13 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
               <button onClick={() => setOnlyValid(true)} className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${onlyValid ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-300'}`}>仅看有效</button>
               <button onClick={() => setOnlyValid(false)} className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${!onlyValid ? 'bg-white/10 text-white' : 'text-slate-500 hover:text-slate-300'}`}>全部记录</button>
             </div>
+            <button 
+              onClick={() => setShowSidebar(!showSidebar)} 
+              className="p-2 bg-white/5 border border-white/10 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-all shadow-sm"
+              title={showSidebar ? "隐藏侧边栏" : "显示侧边栏"}
+            >
+              {showSidebar ? <PanelRightClose size={20} /> : <PanelRightOpen size={20} />}
+            </button>
           </div>
           <div className="relative group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-400 transition-colors" size={18} />
@@ -464,7 +491,10 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
                       </div>
                       <div className="flex items-center pt-5 border-t border-slate-50 space-x-8 text-left">
                         <div className="flex items-center text-slate-500"><Building2 size={14} className="mr-2 text-slate-300" /><span className="text-[11px] font-bold italic">{row.purchaser}</span></div>
-                        <div className="flex items-center"><Clock size={14} className={`mr-2 ${row.isValid ? 'text-blue-500' : 'text-slate-300'}`} /><span className={`text-[11px] font-black ${row.isValid ? 'text-blue-600' : 'text-slate-400'}`}>{row.deadline}</span></div>
+                        <div className="flex flex-col space-y-1">
+                          <div className="flex items-center"><Clock size={14} className={`mr-2 ${row.isValid ? 'text-blue-500' : 'text-slate-300'}`} /><span className={`text-[11px] font-black ${row.isValid ? 'text-blue-600' : 'text-slate-400'}`}>截止: {row.deadline}</span></div>
+                          <div className="flex items-center"><CalendarDays size={14} className={`mr-2 ${row.isValid ? 'text-emerald-500' : 'text-slate-300'}`} /><span className={`text-[11px] font-black ${row.isValid ? 'text-emerald-600' : 'text-slate-400'}`}>开启: {row.openingTime}</span></div>
+                        </div>
                         <div className="flex items-center text-slate-900"><Coins size={14} className="mr-2 text-amber-500" /><span className="text-[11px] font-black tracking-tighter">{row.estAmount}万元</span></div>
                       </div>
                     </div>
@@ -479,6 +509,10 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
                       <th className="sticky left-0 z-40 bg-slate-900 w-20 px-4 py-4 border-r border-slate-800 text-center">匹配度</th>
                       <th className="sticky left-20 z-40 bg-slate-900 w-32 px-4 py-4 border-r border-slate-800">操作</th>
                       <th className="w-40 px-4 py-4 border-r border-slate-800">推荐标签</th>
+                      <th className="w-48 px-4 py-4 border-r border-slate-800">采购项目编号</th>
+                      <th className="w-80 px-4 py-4 border-r border-slate-800">项目名称</th>
+                      <th className="w-48 px-4 py-4 border-r border-slate-800">采购文件获取截止时间</th>
+                      <th className="w-48 px-4 py-4 border-r border-slate-800">开启应答文件时间</th>
                       <th className="w-48 px-4 py-4 border-r border-slate-800">分标编号</th>
                       <th className="w-60 px-4 py-4 border-r border-slate-800">分标名称</th>
                       <th className="w-24 px-4 py-4 border-r border-slate-800">包号</th>
@@ -519,6 +553,10 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
                           <td className="px-4 py-4 border-r border-slate-100">
                             <span className={`px-2 py-0.5 text-[9px] font-black rounded-lg uppercase tracking-widest italic border ${row.match >= 90 ? 'bg-amber-50 text-amber-600 border-amber-200' : 'bg-blue-50 text-blue-600 border-blue-200'}`}>{row.tag}</span>
                           </td>
+                          <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-600 italic">{row.projectId}</td>
+                          <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-800">{row.tenderTitle}</td>
+                          <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-600">{row.deadline}</td>
+                          <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-blue-600">{row.openingTime}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-600 italic">{row.subBidNumber}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-800">{row.subBidName}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-xs font-black text-blue-600">{row.lotNumber}</td>
@@ -528,7 +566,6 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
                           <td className="px-4 py-4 border-r border-slate-100 text-[11px] text-slate-500 leading-relaxed">{row.experience}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-[11px] text-slate-500 leading-relaxed">{row.personnel}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-600 italic">{row.purchaser}</td>
-                          <td className="px-4 py-4 border-r border-slate-100 text-xs font-black text-slate-500">{row.deadline}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-700">{row.duration}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-xs font-bold text-slate-700">{row.location}</td>
                           <td className="px-4 py-4 border-r border-slate-100 text-sm font-black text-slate-900">{row.estAmount}</td>
@@ -555,85 +592,87 @@ const AISelectorView: React.FC<AISelectorViewProps> = ({ plannedIds, onTogglePla
       </div>
 
       {/* 右侧：AI 策略控制台 */}
-      <div className="w-80 flex flex-col space-y-6 text-left shrink-0">
-        <div className="flex-[3] min-h-[450px] flex flex-col bg-slate-950 rounded-[32px] overflow-hidden shadow-2xl border border-white/5 relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent pointer-events-none" />
-          <div className="p-5 border-b border-white/5 bg-slate-900/60 backdrop-blur-md flex items-center justify-between relative z-10 text-left">
-            <div className="flex items-center text-blue-400 font-black italic uppercase tracking-widest text-[10px]"><Bot size={18} className="mr-2" /><span>GridGPT 策略大脑</span></div>
-            <Settings size={16} className="text-slate-600 hover:text-white cursor-pointer transition-colors" />
-          </div>
-          <div className="flex-1 overflow-y-auto p-5 space-y-5 text-left custom-scrollbar-dark relative z-10">
-            {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
-                <div className={`max-w-[90%] p-4 rounded-2xl text-[11px] leading-relaxed shadow-lg ${m.role === 'user' ? 'bg-blue-600 text-white rounded-tr-none font-bold' : 'bg-white/5 text-slate-300 border border-white/10 rounded-tl-none italic font-medium'}`}>{m.text}</div>
+      {showSidebar && (
+        <div className="w-80 flex flex-col space-y-6 text-left shrink-0 animate-in slide-in-from-right duration-300">
+          <div className="flex-[3] min-h-[450px] flex flex-col bg-slate-950 rounded-[32px] overflow-hidden shadow-2xl border border-white/5 relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent pointer-events-none" />
+            <div className="p-5 border-b border-white/5 bg-slate-900/60 backdrop-blur-md flex items-center justify-between relative z-10 text-left">
+              <div className="flex items-center text-blue-400 font-black italic uppercase tracking-widest text-[10px]"><Bot size={18} className="mr-2" /><span>GridGPT 策略大脑</span></div>
+              <Settings size={16} className="text-slate-600 hover:text-white cursor-pointer transition-colors" />
+            </div>
+            <div className="flex-1 overflow-y-auto p-5 space-y-5 text-left custom-scrollbar-dark relative z-10">
+              {messages.map((m, i) => (
+                <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
+                  <div className={`max-w-[90%] p-4 rounded-2xl text-[11px] leading-relaxed shadow-lg ${m.role === 'user' ? 'bg-blue-600 text-white rounded-tr-none font-bold' : 'bg-white/5 text-slate-300 border border-white/10 rounded-tl-none italic font-medium'}`}>{m.text}</div>
+                </div>
+              ))}
+            </div>
+            <div className="p-4 bg-slate-900/80 border-t border-white/5 relative z-10 text-left">
+              <div className="flex items-center space-x-2 bg-white/5 border border-white/10 rounded-2xl p-1.5 focus-within:border-blue-500/50 transition-all">
+                <input value={input} onChange={e => setInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleSend()} placeholder="在此输入新的策略要求..." className="flex-1 bg-transparent border-none outline-none text-white text-[11px] px-3 font-medium placeholder:text-slate-700" />
+                <button onClick={handleSend} className="bg-blue-600 p-2.5 text-white rounded-xl hover:bg-blue-500 shadow-lg active:scale-90 transition-all"><Send size={14} /></button>
               </div>
-            ))}
-          </div>
-          <div className="p-4 bg-slate-900/80 border-t border-white/5 relative z-10 text-left">
-            <div className="flex items-center space-x-2 bg-white/5 border border-white/10 rounded-2xl p-1.5 focus-within:border-blue-500/50 transition-all">
-              <input value={input} onChange={e => setInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleSend()} placeholder="在此输入新的策略要求..." className="flex-1 bg-transparent border-none outline-none text-white text-[11px] px-3 font-medium placeholder:text-slate-700" />
-              <button onClick={handleSend} className="bg-blue-600 p-2.5 text-white rounded-xl hover:bg-blue-500 shadow-lg active:scale-90 transition-all"><Send size={14} /></button>
             </div>
           </div>
-        </div>
 
-        {/* AI 推荐规则引擎 - 增强 CRUD */}
-        <div className="flex-[2] min-h-[300px] bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm text-left flex flex-col overflow-hidden">
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center italic">
-              <Settings2 size={16} className="text-blue-600 mr-2" />
-              <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest">AI 推荐规则引擎</h3>
+          {/* AI 推荐规则引擎 - 增强 CRUD */}
+          <div className="flex-[2] min-h-[300px] bg-white p-6 rounded-[32px] border border-slate-200 shadow-sm text-left flex flex-col overflow-hidden">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center italic">
+                <Settings2 size={16} className="text-blue-600 mr-2" />
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest">AI 推荐规则引擎</h3>
+              </div>
+              <button 
+                onClick={() => handleOpenRuleModal()}
+                className="p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                title="新增自定义规则"
+              >
+                <Plus size={14} strokeWidth={3} />
+              </button>
             </div>
-            <button 
-              onClick={() => handleOpenRuleModal()}
-              className="p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-sm"
-              title="新增自定义规则"
-            >
-              <Plus size={14} strokeWidth={3} />
+
+            <div className="space-y-3.5 flex-1 overflow-y-auto custom-scrollbar-main pr-1">
+              {rules.map((rule) => (
+                <div 
+                  key={rule.id} 
+                  className={`p-3 rounded-2xl border transition-all relative group/rule ${rule.enabled ? 'bg-slate-50 border-blue-100 shadow-sm' : 'bg-white border-slate-100 opacity-60'}`}
+                >
+                  {/* 悬浮操作栏 */}
+                  <div className="absolute top-2 right-10 flex space-x-1 opacity-0 group-hover/rule:opacity-100 transition-opacity z-10">
+                     <button onClick={() => handleOpenRuleModal(rule)} className="p-1 bg-white border border-slate-200 text-slate-400 hover:text-blue-600 rounded-md shadow-sm"><Edit2 size={10}/></button>
+                     <button onClick={(e) => handleDeleteRule(rule.id, e)} className="p-1 bg-white border border-slate-200 text-slate-400 hover:text-red-500 rounded-md shadow-sm"><Trash2 size={10}/></button>
+                  </div>
+
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start space-x-3">
+                      <div className={`p-2 rounded-xl shrink-0 transition-transform group-hover/rule:scale-110 ${rule.enabled ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+                        <rule.icon size={14} />
+                      </div>
+                      <div className="text-left pr-6">
+                        <p className="text-[10px] font-black text-slate-900 uppercase tracking-tight leading-none mb-1">{rule.name}</p>
+                        <p className="text-[9px] text-slate-400 font-bold leading-tight">{rule.desc}</p>
+                      </div>
+                    </div>
+                    <button onClick={() => toggleRule(rule.id)} className="shrink-0 transition-all active:scale-90 relative z-20">
+                      {rule.enabled ? <ToggleRight size={24} className="text-blue-600" /> : <ToggleLeft size={24} className="text-slate-200" />}
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {rules.length === 0 && (
+                <div className="py-10 text-center border-2 border-dashed border-slate-100 rounded-3xl">
+                   <Layout size={32} className="mx-auto text-slate-100 mb-2" />
+                   <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">暂无自定义逻辑</p>
+                </div>
+              )}
+            </div>
+
+            <button onClick={handleApplyRules} className="w-full mt-6 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-black transition-all shadow-xl shadow-slate-200 flex items-center justify-center group shrink-0">
+              <RefreshCw size={14} className="mr-3 group-active:animate-spin" /> 重新计算并应用规则
             </button>
           </div>
-
-          <div className="space-y-3.5 flex-1 overflow-y-auto custom-scrollbar-main pr-1">
-            {rules.map((rule) => (
-              <div 
-                key={rule.id} 
-                className={`p-3 rounded-2xl border transition-all relative group/rule ${rule.enabled ? 'bg-slate-50 border-blue-100 shadow-sm' : 'bg-white border-slate-100 opacity-60'}`}
-              >
-                {/* 悬浮操作栏 */}
-                <div className="absolute top-2 right-10 flex space-x-1 opacity-0 group-hover/rule:opacity-100 transition-opacity z-10">
-                   <button onClick={() => handleOpenRuleModal(rule)} className="p-1 bg-white border border-slate-200 text-slate-400 hover:text-blue-600 rounded-md shadow-sm"><Edit2 size={10}/></button>
-                   <button onClick={(e) => handleDeleteRule(rule.id, e)} className="p-1 bg-white border border-slate-200 text-slate-400 hover:text-red-500 rounded-md shadow-sm"><Trash2 size={10}/></button>
-                </div>
-
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start space-x-3">
-                    <div className={`p-2 rounded-xl shrink-0 transition-transform group-hover/rule:scale-110 ${rule.enabled ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
-                      <rule.icon size={14} />
-                    </div>
-                    <div className="text-left pr-6">
-                      <p className="text-[10px] font-black text-slate-900 uppercase tracking-tight leading-none mb-1">{rule.name}</p>
-                      <p className="text-[9px] text-slate-400 font-bold leading-tight">{rule.desc}</p>
-                    </div>
-                  </div>
-                  <button onClick={() => toggleRule(rule.id)} className="shrink-0 transition-all active:scale-90 relative z-20">
-                    {rule.enabled ? <ToggleRight size={24} className="text-blue-600" /> : <ToggleLeft size={24} className="text-slate-200" />}
-                  </button>
-                </div>
-              </div>
-            ))}
-            {rules.length === 0 && (
-              <div className="py-10 text-center border-2 border-dashed border-slate-100 rounded-3xl">
-                 <Layout size={32} className="mx-auto text-slate-100 mb-2" />
-                 <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest italic">暂无自定义逻辑</p>
-              </div>
-            )}
-          </div>
-
-          <button onClick={handleApplyRules} className="w-full mt-6 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-black transition-all shadow-xl shadow-slate-200 flex items-center justify-center group shrink-0">
-            <RefreshCw size={14} className="mr-3 group-active:animate-spin" /> 重新计算并应用规则
-          </button>
         </div>
-      </div>
+      )}
       
       <style>{`
         .custom-scrollbar-main::-webkit-scrollbar { width: 4px; }

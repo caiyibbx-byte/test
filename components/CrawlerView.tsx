@@ -203,6 +203,10 @@ const CrawlerView: React.FC<CrawlerViewProps> = ({ plannedIds, onTogglePlan, onA
                       <tr>
                         <th className="sticky left-0 z-40 bg-slate-100 w-16 px-4 py-4 border-b border-r border-slate-200 text-center">序号</th>
                         <th className="sticky left-16 z-40 bg-slate-100 w-40 px-4 py-4 border-b border-r border-slate-200">操作</th>
+                        <th className="w-48 px-4 py-4 border-b border-r border-slate-200">采购项目编号</th>
+                        <th className="w-80 px-4 py-4 border-b border-r border-slate-200">项目名称</th>
+                        <th className="w-48 px-4 py-4 border-b border-r border-slate-200">采购文件获取截止时间</th>
+                        <th className="w-48 px-4 py-4 border-b border-r border-slate-200">开启应答文件时间</th>
                         <th className="w-48 px-4 py-4 border-b border-r border-slate-200">分标编号</th>
                         <th className="w-60 px-4 py-4 border-b border-r border-slate-200">分标名称</th>
                         <th className="w-24 px-4 py-4 border-b border-r border-slate-200">包号</th>
@@ -242,6 +246,10 @@ const CrawlerView: React.FC<CrawlerViewProps> = ({ plannedIds, onTogglePlan, onA
                                   {isPlanned ? '已加入' : '投标此包'}
                                 </button>
                               </td>
+                              <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-bold text-slate-600 italic">{selectedTender.projectId}</td>
+                              <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-bold text-slate-800">{selectedTender.title}</td>
+                              <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-bold text-slate-600">{selectedTender.deadline}</td>
+                              <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-bold text-blue-600">{selectedTender.openingTime}</td>
                               <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-bold text-slate-600 italic">{pkg.subBidNumber}</td>
                               <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-bold text-slate-800">{pkg.subBidName}</td>
                               <td className="px-4 py-4 border-r border-b border-slate-100 text-xs font-black text-blue-600">{pkg.lotNumber}</td>
@@ -346,9 +354,6 @@ const CrawlerView: React.FC<CrawlerViewProps> = ({ plannedIds, onTogglePlan, onA
                   </td>
                   <td className="px-10 py-8">
                     <div className="space-y-2">
-                       <div className="flex items-center text-[10px] font-black text-slate-400 uppercase tracking-tighter">
-                          <Clock size={12} className="mr-2 opacity-30" /> 截止: <span className="ml-2 text-slate-600">{tender.deadline}</span>
-                       </div>
                        <div className="flex items-center text-[10px] font-black text-blue-600 uppercase tracking-tighter">
                           <ExternalLink size={12} className="mr-2 opacity-50" /> 开启: <span className="ml-2">{tender.openingTime}</span>
                        </div>
