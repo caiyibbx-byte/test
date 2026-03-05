@@ -499,7 +499,7 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
   );
 
   return (
-    <div className="flex flex-col h-[calc(100vh-160px)] space-y-6 text-left">
+    <div className="flex flex-col h-[calc(100vh-100px)] space-y-6 text-left">
       {/* 深度详情模态框 (A4仿真) */}
       {detailPerson && (
         <div className="fixed inset-0 z-[2000] bg-slate-950/95 backdrop-blur-2xl flex flex-col items-center py-12 overflow-y-auto animate-in fade-in duration-500 custom-scrollbar-main text-left">
@@ -621,66 +621,66 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                          <div className="flex items-center italic text-left"><Bot size={28} className="text-indigo-600 mr-3" /><h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">GridGPT 专家智能推荐轨道</h4></div>
                          <button disabled={isAiRecommending || !canEditTeam} onClick={handleTeamAiRecommend} className="flex items-center px-8 py-3 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 shadow-xl disabled:opacity-30 transition-all">{isAiRecommending ? <RefreshCw className="mr-2 animate-spin" size={14}/> : <BrainCircuit size={14} className="mr-2" />} 启动画像匹配</button>
                       </div>
-                      <div className="overflow-x-auto border-2 border-indigo-100 rounded-[40px] bg-indigo-50/30 shadow-sm overflow-hidden">
-                        <table className="w-full text-left border-collapse">
-                          <thead className="bg-indigo-600 text-white text-xs font-black uppercase tracking-widest">
+                      <div className="overflow-x-auto border border-slate-200 rounded-2xl bg-white shadow-sm custom-scrollbar-main">
+                        <table className="w-full min-w-[1600px] text-left border-collapse table-fixed">
+                          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest">
                             <tr>
-                              <th className="px-6 py-5 border-r border-indigo-500">匹配度</th>
-                              <th className="px-6 py-5 border-r border-indigo-500">姓名</th>
-                              <th className="px-6 py-5 border-r border-indigo-500">职称</th>
-                              <th className="px-6 py-5 border-r border-indigo-500">学历/专业</th>
-                              <th className="px-6 py-5 border-r border-indigo-500 text-center">工龄</th>
-                              <th className="px-6 py-5 border-r border-indigo-500 text-center">同类年限</th>
-                              <th className="px-6 py-5 border-r border-indigo-500">拟任岗位</th>
-                              <th className="px-6 py-5 border-r border-indigo-500 text-center">当前负荷</th>
-                              <th className="px-6 py-5 border-r border-indigo-500">AI 画像判定</th>
-                              <th className="px-6 py-5 text-center">操作</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[100px]">匹配度</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[120px]">姓名</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[150px]">职称</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[200px]">学历/专业</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center w-[100px]">工龄</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center w-[100px]">同类年限</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[180px]">拟任岗位</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center w-[120px]">当前负荷</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[400px]">AI 画像判定</th>
+                              <th className="px-6 py-6 text-center w-[130px]">操作</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-indigo-100/50">
+                          <tbody className="divide-y divide-slate-100">
                             {aiRecommendations.map((rec, idx) => (
-                              <tr key={idx} className="hover:bg-indigo-100/50 transition-colors group">
-                                <td className="px-6 py-6 border-r border-indigo-100/50">
-                                  <span className="px-3 py-1.5 bg-indigo-600 text-white text-xs font-black rounded italic">
+                              <tr key={idx} className="hover:bg-slate-50 transition-colors group">
+                                <td className="px-6 py-6 border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
+                                  <span className="px-2 py-1 bg-indigo-50 text-indigo-600 border border-indigo-100 text-[10px] font-black rounded italic">
                                     {rec.matchScore}%
                                   </span>
                                 </td>
-                                <td className="px-6 py-6 text-sm font-black text-slate-900 italic border-r border-indigo-100/50">
+                                <td className="px-6 py-6 text-sm font-bold text-slate-900 border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {rec.person.name}
                                 </td>
-                                <td className="px-6 py-6 text-xs font-bold text-slate-500 uppercase italic border-r border-indigo-100/50">
+                                <td className="px-6 py-6 text-[11px] font-medium text-slate-500 uppercase border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {rec.person.title}
                                 </td>
-                                <td className="px-6 py-6 text-xs font-bold text-slate-400 uppercase italic border-r border-indigo-100/50">
+                                <td className="px-6 py-6 text-[11px] font-medium text-slate-400 border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {rec.person.education} · {rec.person.major}
                                 </td>
-                                <td className="px-6 py-6 text-sm font-black text-slate-600 italic border-r border-indigo-100/50 text-center">
+                                <td className="px-6 py-6 text-sm font-medium text-slate-600 border-r border-slate-100/60 text-center whitespace-nowrap overflow-hidden">
                                   {rec.person.years}年
                                 </td>
-                                <td className="px-6 py-6 text-sm font-black text-indigo-600 italic border-r border-indigo-100/50 text-center">
+                                <td className="px-6 py-6 text-sm font-bold text-indigo-600 border-r border-slate-100/60 text-center whitespace-nowrap overflow-hidden">
                                   {rec.person.similarYears}年
                                 </td>
-                                <td className="px-6 py-6 text-xs font-bold text-indigo-600 uppercase italic border-r border-indigo-100/50">
+                                <td className="px-6 py-6 text-[11px] font-bold text-indigo-600 uppercase border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {rec.person.proposedPosition}
                                 </td>
-                                <td className="px-6 py-6 border-r border-indigo-100/50 text-center">
+                                <td className="px-6 py-6 border-r border-slate-100/60 text-center whitespace-nowrap overflow-hidden">
                                   <div className="flex items-center justify-center space-x-2">
-                                    <div className={`w-2 h-2 rounded-full ${rec.person.currentLoad > 80 ? 'bg-red-500' : rec.person.currentLoad > 50 ? 'bg-amber-500' : 'bg-emerald-500'}`} />
-                                    <span className="text-xs font-black text-slate-500 italic">{rec.person.currentLoad}%</span>
+                                    <div className={`w-1.5 h-1.5 rounded-full ${rec.person.currentLoad > 80 ? 'bg-red-500' : rec.person.currentLoad > 50 ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+                                    <span className="text-[11px] font-bold text-slate-500">{rec.person.currentLoad}%</span>
                                   </div>
                                 </td>
-                                <td className="px-6 py-6 text-xs text-indigo-800 font-bold italic border-r border-indigo-100/50 max-w-[300px]">
-                                  <div className="line-clamp-2 leading-relaxed">{rec.reason}</div>
+                                <td className="px-6 py-6 text-[11px] text-slate-500 font-medium border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
+                                  <div className="leading-relaxed italic">{rec.reason}</div>
                                 </td>
-                                <td className="px-6 py-6">
-                                  <div className="flex items-center justify-center space-x-4">
-                                    <button onClick={() => setDetailPerson(rec.person)} className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all bg-white rounded-xl shadow-sm border border-slate-100">
-                                      <Eye size={16} />
+                                <td className="px-4 py-4">
+                                  <div className="flex items-center justify-center space-x-2">
+                                    <button onClick={() => setDetailPerson(rec.person)} className="p-2 text-slate-400 hover:text-indigo-600 transition-all bg-white rounded-lg border border-slate-200 shadow-sm" title="查看资历">
+                                      <Eye size={14} />
                                     </button>
                                     {canEditTeam && (
                                       <button 
                                         onClick={() => setSelectedPersonnel(prev => prev.find(p => p.id === rec.person.id) ? prev : [...prev, rec.person])} 
-                                        className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-md active:scale-95"
+                                        className="px-4 py-2 bg-slate-900 text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-sm active:scale-95"
                                       >
                                         选用
                                       </button>
@@ -699,56 +699,56 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                          <div className="flex items-center italic text-left"><SearchCode size={28} className="text-slate-400 mr-3" /><h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">全库专家人工检索轨道</h4></div>
                          <div className="relative group"><Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors" size={16} /><input disabled={!canEditTeam} value={personnelSearch} onChange={e => setPersonnelSearch(e.target.value)} placeholder="检索姓名/院校/岗位..." className="pl-12 pr-6 py-3.5 bg-slate-100 border border-slate-200 rounded-2xl outline-none text-sm font-bold text-slate-700 w-80 focus:bg-white focus:border-indigo-500 transition-all shadow-inner" /></div>
                       </div>
-                      <div className="overflow-x-auto border border-slate-200 rounded-[40px] bg-white shadow-sm overflow-hidden">
-                        <table className="w-full text-left border-collapse">
-                          <thead className="bg-slate-900 text-white text-xs font-black uppercase tracking-widest">
+                      <div className="overflow-x-auto border border-slate-200 rounded-2xl bg-white shadow-sm custom-scrollbar-main">
+                        <table className="w-full min-w-[1200px] text-left border-collapse table-fixed">
+                          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest">
                             <tr>
-                              <th className="px-6 py-5 border-r border-slate-800">姓名</th>
-                              <th className="px-6 py-5 border-r border-slate-800">职称</th>
-                              <th className="px-6 py-5 border-r border-slate-800">学历/专业</th>
-                              <th className="px-6 py-5 border-r border-slate-800 text-center">工龄</th>
-                              <th className="px-6 py-5 border-r border-slate-800 text-center">同类年限</th>
-                              <th className="px-6 py-5 border-r border-slate-800">拟任岗位</th>
-                              <th className="px-6 py-5 border-r border-slate-800 text-center">当前负荷</th>
-                              <th className="px-6 py-5 text-center">操作</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[120px]">姓名</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[150px]">职称</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[200px]">学历/专业</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center w-[100px]">工龄</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center w-[100px]">同类年限</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 w-[180px]">拟任岗位</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center w-[120px]">当前负荷</th>
+                              <th className="px-6 py-6 text-center w-[130px]">操作</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100">
                             {fullPersonnelPool.filter(p => p.name.includes(personnelSearch)).map(p => (
                               <tr key={p.id} className="hover:bg-slate-50 transition-colors group">
-                                <td className="px-6 py-6 text-sm font-black text-slate-900 italic border-r border-slate-100">
+                                <td className="px-6 py-6 text-sm font-bold text-slate-900 border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {p.name}
                                 </td>
-                                <td className="px-6 py-6 text-xs font-bold text-slate-500 uppercase italic border-r border-slate-100">
+                                <td className="px-6 py-6 text-[11px] font-medium text-slate-500 uppercase border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {p.title}
                                 </td>
-                                <td className="px-6 py-6 text-xs font-bold text-slate-400 uppercase italic border-r border-slate-100">
+                                <td className="px-6 py-6 text-[11px] font-medium text-slate-400 border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {p.education} · {p.major}
                                 </td>
-                                <td className="px-6 py-6 text-sm font-black text-slate-600 italic border-r border-slate-100 text-center">
+                                <td className="px-6 py-6 text-sm font-medium text-slate-600 border-r border-slate-100/60 text-center whitespace-nowrap overflow-hidden">
                                   {p.years}年
                                 </td>
-                                <td className="px-6 py-6 text-sm font-black text-indigo-600 italic border-r border-slate-100 text-center">
+                                <td className="px-6 py-6 text-sm font-bold text-indigo-600 border-r border-slate-100/60 text-center whitespace-nowrap overflow-hidden">
                                   {p.similarYears}年
                                 </td>
-                                <td className="px-6 py-6 text-xs font-bold text-indigo-600 uppercase italic border-r border-slate-100">
+                                <td className="px-6 py-6 text-[11px] font-bold text-indigo-600 uppercase border-r border-slate-100/60 whitespace-nowrap overflow-hidden">
                                   {p.proposedPosition}
                                 </td>
-                                <td className="px-6 py-6 border-r border-slate-100 text-center">
+                                <td className="px-6 py-6 border-r border-slate-100/60 text-center whitespace-nowrap overflow-hidden">
                                   <div className="flex items-center justify-center space-x-2">
-                                    <div className={`w-2 h-2 rounded-full ${p.currentLoad > 80 ? 'bg-red-500' : p.currentLoad > 50 ? 'bg-amber-500' : 'bg-emerald-500'}`} />
-                                    <span className="text-xs font-black text-slate-500 italic">{p.currentLoad}%</span>
+                                    <div className={`w-1.5 h-1.5 rounded-full ${p.currentLoad > 80 ? 'bg-red-500' : p.currentLoad > 50 ? 'bg-amber-500' : 'bg-emerald-500'}`} />
+                                    <span className="text-[11px] font-bold text-slate-500">{p.currentLoad}%</span>
                                   </div>
                                 </td>
-                                <td className="px-6 py-6">
-                                  <div className="flex items-center justify-center space-x-4">
-                                    <button onClick={() => setDetailPerson(p)} className="p-2.5 text-slate-400 hover:text-indigo-600 transition-all bg-slate-50 rounded-xl border border-slate-100">
-                                      <Eye size={16} />
+                                <td className="px-4 py-4">
+                                  <div className="flex items-center justify-center space-x-2">
+                                    <button onClick={() => setDetailPerson(p)} className="p-2 text-slate-400 hover:text-indigo-600 transition-all bg-white rounded-lg border border-slate-200 shadow-sm" title="查看资历">
+                                      <Eye size={14} />
                                     </button>
                                     {canEditTeam && (
                                       <button 
                                         onClick={() => setSelectedPersonnel(prev => prev.find(i => i.id === p.id) ? prev : [...prev, p])} 
-                                        className="px-6 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-black transition-all shadow-md active:scale-95"
+                                        className="px-4 py-2 bg-slate-900 text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-sm active:scale-95"
                                       >
                                         选用
                                       </button>
@@ -762,93 +762,116 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                       </div>
                    </section>
                 </div>
-                <div className="w-[480px] flex flex-col border-l border-slate-100 shrink-0 overflow-y-auto custom-scrollbar-dark bg-slate-950">
-                  <div className="h-[550px] shrink-0 bg-slate-950 flex flex-col p-10 text-left overflow-hidden border-b border-white/5">
-                    <div className="flex items-center justify-between mb-12 text-white italic text-left">
-                        <div className="flex items-center italic">
-                          <UserPlus2 size={24} className="text-indigo-400 mr-4" />
-                          <h4 className="text-base font-black uppercase tracking-tighter">标书拟定团队池</h4>
-                        </div>
-                        <span className="text-slate-500 text-xs font-black italic tracking-widest">{selectedPersonnel.length} / 12 人</span>
-                    </div>
-                    <div className="flex-1 space-y-5 overflow-y-auto custom-scrollbar-dark pr-4 text-left">
-                        {selectedPersonnel.map((p, idx) => {
-                          const isLeader = p.id === projectLeaderId;
-                          return (
-                            <div key={idx} className={`p-6 border transition-all rounded-[32px] flex items-center justify-between group text-white text-left animate-in slide-in-from-bottom-4 ${isLeader ? 'bg-indigo-600/20 border-indigo-500/50 shadow-[0_0_30px_rgba(79,70,229,0.3)]' : 'bg-white/5 border-white/5'}`}>
-                                <div className="flex items-center space-x-5 min-w-0 flex-1 text-left">
-                                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-black text-base shrink-0 shadow-lg transition-colors ${isLeader ? 'bg-indigo-600 text-white ring-4 ring-indigo-600/20' : 'bg-slate-800 text-slate-400'}`}>
-                                    {isLeader ? <Medal size={24} /> : idx + 1}
-                                  </div>
-                                  <div className="text-left min-w-0">
-                                      <div className="flex items-center space-x-3">
-                                        <p className="text-lg font-black italic truncate">{p.name}</p>
-                                        {isLeader && <span className="px-2.5 py-1 bg-indigo-600 text-[9px] font-black uppercase rounded italic tracking-widest">负责人</span>}
-                                      </div>
-                                      <p className="text-xs text-slate-500 font-bold uppercase mt-1.5 italic truncate tracking-tight">{p.proposedPosition}</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                  {canEditTeam && (
-                                    <button 
-                                      onClick={() => setProjectLeaderId(isLeader ? null : p.id)} 
-                                      className={`p-2.5 rounded-xl transition-all ${isLeader ? 'text-blue-400 bg-blue-400/10' : 'text-slate-500 hover:text-blue-400 hover:bg-white/5'}`}
-                                      title={isLeader ? "取消负责人身份" : "设为项目负责人"}
-                                    >
-                                      <Star size={18} fill={isLeader ? "currentColor" : "none"} />
-                                    </button>
-                                  )}
-                                  <button onClick={() => setDetailPerson(p)} className="p-2.5 text-slate-400 hover:text-white rounded-xl hover:bg-white/5 transition-all"><Maximize2 size={18}/></button>
-                                  {canEditTeam && <button onClick={() => { setSelectedPersonnel(selectedPersonnel.filter((_, i) => i !== idx)); if(isLeader) setProjectLeaderId(null); }} className="p-2.5 text-slate-600 hover:text-red-400 transition-all rounded-xl hover:bg-white/5"><Trash2 size={20} /></button>}
-                                </div>
-                            </div>
-                          );
-                        })}
-                        {selectedPersonnel.length === 0 && (<div className="h-full flex flex-col items-center justify-center text-slate-700 opacity-30 border-2 border-dashed border-white/5 rounded-[40px]"><UserSearch size={64} strokeWidth={1} /><p className="text-xs font-black uppercase tracking-[0.3em] mt-8 italic">Personnel Pool Empty</p></div>)}
-                    </div>
-                    {projectLeaderId && (
-                      <div className="mt-8 p-6 bg-indigo-600/10 border border-indigo-600/20 rounded-2xl animate-in fade-in slide-in-from-bottom-2">
-                          <p className="text-xs font-black text-indigo-400 uppercase tracking-widest flex items-center italic">
-                            <CheckCircle2 size={14} className="mr-3" /> 预览优化已就绪
-                          </p>
-                          <p className="text-sm text-slate-400 mt-3 leading-relaxed">
-                            负责人 <span className="text-white font-bold">{selectedPersonnel.find(p => p.id === projectLeaderId)?.name}</span> 的资历将自动排在标书文件的首页。
-                          </p>
+                <div className="w-[400px] flex flex-col shrink-0 bg-slate-50 border-l border-slate-200 p-6 gap-6 overflow-y-auto no-scrollbar">
+                  {/* 构件 1: 标书拟定团队池 */}
+                  <div className="flex-[1.2] min-h-[400px] bg-slate-950 rounded-[32px] shadow-2xl flex flex-col overflow-hidden border border-white/5">
+                    <div className="flex flex-col p-6 text-left overflow-hidden h-full">
+                      <div className="flex items-center justify-between mb-6 text-white italic text-left">
+                          <div className="flex items-center italic">
+                            <UserPlus2 size={20} className="text-indigo-400 mr-3" />
+                            <h4 className="text-sm font-black uppercase tracking-tighter">标书拟定团队池</h4>
+                          </div>
+                          <span className="text-slate-500 text-[10px] font-black italic tracking-widest">{selectedPersonnel.length} / 12 人</span>
                       </div>
-                    )}
+                      <div className="flex-1 space-y-3 overflow-y-auto no-scrollbar pr-2 text-left">
+                          {selectedPersonnel.length === 0 ? (
+                            <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-4 opacity-50">
+                              <Users size={40} strokeWidth={1} />
+                              <p className="text-[10px] font-bold uppercase tracking-widest">暂未指派团队成员</p>
+                            </div>
+                          ) : (
+                            selectedPersonnel.map((p, idx) => {
+                              const isLeader = p.id === projectLeaderId;
+                              return (
+                                <div key={idx} className={`p-4 border transition-all rounded-[24px] flex items-center justify-between group text-white text-left animate-in slide-in-from-bottom-4 ${isLeader ? 'bg-indigo-600/20 border-indigo-500/50 shadow-[0_0_20px_rgba(79,70,229,0.3)]' : 'bg-white/5 border-white/5'}`}>
+                                    <div className="flex items-center space-x-4 min-w-0 flex-1 text-left">
+                                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm shrink-0 shadow-lg transition-colors ${isLeader ? 'bg-indigo-600 text-white ring-4 ring-indigo-600/20' : 'bg-slate-800 text-slate-400'}`}>
+                                        {isLeader ? <Medal size={18} /> : idx + 1}
+                                      </div>
+                                      <div className="text-left min-w-0">
+                                          <div className="flex items-center space-x-2">
+                                            <p className="text-sm font-black italic truncate">{p.name}</p>
+                                            {isLeader && <span className="px-1.5 py-0.5 bg-indigo-600 text-[8px] font-black uppercase rounded italic tracking-widest">负责人</span>}
+                                          </div>
+                                          <p className="text-[10px] text-slate-500 font-bold uppercase mt-1 italic truncate tracking-tight">{p.proposedPosition}</p>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                      {canEditTeam && (
+                                        <button 
+                                          onClick={() => setProjectLeaderId(isLeader ? null : p.id)} 
+                                          className={`p-2 rounded-lg transition-all ${isLeader ? 'text-blue-400 bg-blue-400/10' : 'text-slate-500 hover:text-blue-400 hover:bg-white/5'}`}
+                                          title={isLeader ? "取消负责人身份" : "设为项目负责人"}
+                                        >
+                                          <Star size={14} fill={isLeader ? "currentColor" : "none"} />
+                                        </button>
+                                      )}
+                                      <button onClick={() => setDetailPerson(p)} className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-all"><Maximize2 size={14}/></button>
+                                      {canEditTeam && <button onClick={() => { setSelectedPersonnel(selectedPersonnel.filter((_, i) => i !== idx)); if(isLeader) setProjectLeaderId(null); }} className="p-2 text-slate-600 hover:text-red-400 transition-all rounded-lg hover:bg-white/5"><Trash2 size={16} /></button>}
+                                    </div>
+                                </div>
+                              );
+                            })
+                          )}
+                      </div>
+                    </div>
                   </div>
 
-                  {/* 新增：团队二次筛选 AI 对话框 */}
-                  <div className="h-[450px] shrink-0 flex flex-col bg-slate-900 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/10 to-transparent pointer-events-none" />
-                    <div className="px-8 py-5 border-b border-white/5 bg-slate-800/50 backdrop-blur-xl flex items-center justify-between relative z-10">
-                      <div className="flex items-center space-x-4">
-                        <Bot size={22} className="text-indigo-400"/>
-                        <h4 className="text-xs font-black uppercase tracking-widest text-white italic">GridGPT 筛选辅助助理</h4>
+                  {/* 构件 2: 团队筛选助理 */}
+                  <div className="flex-1 min-h-[400px] bg-slate-950 rounded-[32px] shadow-2xl flex flex-col overflow-hidden border border-white/5 relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-transparent pointer-events-none" />
+                    <div className="px-6 py-4 bg-slate-800/30 backdrop-blur-xl flex items-center justify-between relative z-10">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center border border-indigo-500/30">
+                          <Bot size={16} className="text-indigo-400"/>
+                        </div>
+                        <div>
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-white italic">GridGPT 团队筛选助理</h4>
+                          <p className="text-[8px] text-indigo-400/60 font-bold uppercase tracking-tighter">AI-Powered Selection Engine</p>
+                        </div>
                       </div>
-                      {isAiRecommending && <div className="flex items-center space-x-1 animate-pulse"><span className="w-2 h-2 bg-indigo-400 rounded-full"></span></div>}
+                      {isAiRecommending && <div className="flex items-center space-x-1 animate-pulse"><span className="w-1.5 h-1.5 bg-indigo-400 rounded-full"></span></div>}
                     </div>
-                    <div className="flex-1 overflow-y-auto p-8 space-y-6 custom-scrollbar-dark relative z-10">
-                      {teamAiChatMessages.map((msg, i) => (
-                        <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-1`}>
-                          <div className={`max-w-[85%] p-5 rounded-2xl text-xs leading-relaxed shadow-lg ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-none font-bold' : 'bg-white/5 text-slate-300 border border-white/10 rounded-tl-none italic font-medium'}`}>
-                            {msg.text}
+                    <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar relative z-10">
+                      {teamAiChatMessages.length === 0 ? (
+                        <div className="h-full flex flex-col items-center justify-center text-center space-y-4 px-6">
+                          <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                            <Sparkles size={20} className="text-indigo-400 opacity-50" />
+                          </div>
+                          <p className="text-[10px] text-slate-500 font-medium leading-relaxed italic">
+                            您可以输入具体的要求来进一步筛选专家，例如：<br/>
+                            <span className="text-indigo-400/70">“需要具有500kV变电站设计经验的人选”</span>
+                          </p>
+                        </div>
+                      ) : (
+                        teamAiChatMessages.map((msg, i) => (
+                          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
+                            <div className={`max-w-[90%] p-4 rounded-2xl text-[10px] leading-relaxed shadow-xl ${msg.role === 'user' ? 'bg-indigo-600 text-white rounded-tr-none font-bold' : 'bg-slate-800/80 text-slate-300 border border-white/10 rounded-tl-none italic font-medium'}`}>
+                              {msg.text}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      {isAiRecommending && (
+                        <div className="flex justify-start animate-in fade-in">
+                          <div className="bg-slate-800/80 border border-white/10 p-4 rounded-2xl rounded-tl-none flex items-center space-x-3">
+                            <RefreshCw size={14} className="text-indigo-400 animate-spin" />
+                            <span className="text-[10px] text-indigo-400 font-black uppercase italic tracking-widest">正在深度分析...</span>
                           </div>
                         </div>
-                      ))}
-                      {isAiRecommending && <div className="flex justify-start"><div className="bg-white/5 border border-white/10 p-5 rounded-2xl rounded-tl-none"><RefreshCw size={18} className="text-indigo-400 animate-spin" /></div></div>}
+                      )}
                     </div>
-                    <div className="p-6 bg-slate-950/50 border-t border-white/5 relative z-10">
-                      <div className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-2xl p-2 focus-within:border-indigo-500/50 transition-all">
+                    <div className="p-6 bg-slate-950/80 border-t border-white/10 relative z-10">
+                      <div className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-2xl p-2 focus-within:border-indigo-500/50 focus-within:bg-white/10 transition-all shadow-inner">
                         <input 
                           value={teamAiChatInput} 
                           onChange={e => setTeamAiChatInput(e.target.value)} 
                           onKeyDown={e => e.key === 'Enter' && handleTeamAiChatSend()}
-                          placeholder="输入筛选要求（如：需要500kV经验）..." 
-                          className="flex-1 bg-transparent border-none outline-none text-white text-xs px-4 font-medium placeholder:text-slate-700" 
+                          placeholder="输入筛选指令..." 
+                          className="flex-1 bg-transparent border-none outline-none text-white text-[10px] px-3 font-medium placeholder:text-slate-700" 
                         />
-                        <button onClick={handleTeamAiChatSend} className="bg-indigo-600 p-3 text-white rounded-xl hover:bg-indigo-500 shadow-lg active:scale-90 transition-all">
-                          <Send size={18} />
+                        <button onClick={handleTeamAiChatSend} className="bg-indigo-600 p-3 text-white rounded-xl hover:bg-indigo-500 shadow-lg active:scale-90 transition-all flex items-center justify-center">
+                          <Send size={16} />
                         </button>
                       </div>
                     </div>
@@ -872,73 +895,73 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                 <div className="flex-1 flex flex-col border-r border-slate-100 p-8 space-y-10 overflow-y-auto custom-scrollbar-main bg-slate-50/20">
                    <section className="text-left">
                       <div className="flex items-center justify-between mb-6 text-left"><div className="flex items-center italic text-left"><Bot size={24} className="text-emerald-600 mr-3" /><h4 className="text-xs font-black text-slate-900 uppercase">GridGPT 语义契合推荐</h4></div><button disabled={isAiRecommending || !canEditExp} onClick={handleExpAiRecommend} className="flex items-center px-6 py-2.5 bg-emerald-600 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-700 shadow-xl disabled:opacity-30 transition-all">{isAiRecommending ? <RefreshCw className="mr-2 animate-spin" size={12}/> : <BrainCircuit size={12} className="mr-2" />} 启动智能匹配</button></div>
-                      <div className="overflow-x-auto border-2 border-emerald-100 rounded-[32px] bg-emerald-50/30 shadow-sm overflow-hidden">
+                      <div className="overflow-x-auto border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                         <table className="w-full text-left border-collapse">
-                          <thead className="bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest">
+                          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest">
                             <tr>
-                              <th className="px-4 py-4 border-r border-emerald-500">匹配度</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">年份</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">类型</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">业绩名称</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">建设单位</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">地点</th>
-                              <th className="px-4 py-4 border-r border-emerald-500 text-center">金额(W)</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">项目负责人</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">签订日期</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">合同状态</th>
-                              <th className="px-4 py-4 border-r border-emerald-500">AI 判定理由</th>
-                              <th className="px-4 py-4 text-center">操作</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">匹配度</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">年份</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">类型</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">业绩名称</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">建设单位</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">地点</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center">金额(W)</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">项目负责人</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">签订日期</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">合同状态</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">AI 判定理由</th>
+                              <th className="px-6 py-6 text-center">操作</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-emerald-100/50">
+                          <tbody className="divide-y divide-slate-100">
                             {expAiRecommendations.map((rec, idx) => (
-                              <tr key={idx} className="hover:bg-emerald-100/50 transition-colors group">
-                                <td className="px-4 py-4 border-r border-emerald-100/50">
-                                  <span className="px-2 py-1 bg-emerald-600 text-white text-[10px] font-black rounded italic">
+                              <tr key={idx} className="hover:bg-slate-50 transition-colors group">
+                                <td className="px-4 py-4 border-r border-slate-100/60">
+                                  <span className="px-2 py-1 bg-emerald-50 text-emerald-600 border border-emerald-100 text-[10px] font-black rounded italic">
                                     {rec.matchScore}%
                                   </span>
                                 </td>
-                                <td className="px-4 py-4 text-xs font-black text-slate-500 italic border-r border-emerald-100/50">
+                                <td className="px-6 py-6 text-xs font-bold text-slate-500 border-r border-slate-100/60">
                                   {rec.project.contractYear}
                                 </td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-emerald-100/50">
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">
                                   {rec.project.projectType}
                                 </td>
-                                <td className="px-4 py-4 text-xs font-black text-slate-900 italic border-r border-emerald-100/50">
+                                <td className="px-6 py-6 text-xs font-bold text-slate-900 border-r border-slate-100/60">
                                   {rec.project.projectName}
                                 </td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-emerald-100/50">
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">
                                   {rec.project.clientName}
                                 </td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-emerald-100/50">
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">
                                   {rec.project.location}
                                 </td>
-                                <td className="px-4 py-4 text-xs font-black text-blue-600 italic border-r border-emerald-100/50 text-center">
+                                <td className="px-6 py-6 text-xs font-bold text-blue-600 border-r border-slate-100/60 text-center">
                                   {rec.project.amount}W
                                 </td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-600 uppercase italic border-r border-emerald-100/50">
+                                <td className="px-6 py-6 text-[10px] font-bold text-slate-600 uppercase border-r border-slate-100/60">
                                   {rec.project.leader}
                                 </td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-emerald-100/50">
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">
                                   {rec.project.signingDate}
                                 </td>
-                                <td className="px-4 py-4 border-r border-emerald-100/50">
+                                <td className="px-4 py-4 border-r border-slate-100/60">
                                   <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase italic ${rec.project.contractStatus === '已完成' ? 'bg-emerald-100 text-emerald-600' : 'bg-blue-100 text-blue-600'}`}>
                                     {rec.project.contractStatus}
                                   </span>
                                 </td>
-                                <td className="px-4 py-4 text-[10px] text-emerald-800 font-bold italic border-r border-emerald-100/50 max-w-[200px]">
-                                  <div className="line-clamp-2 leading-relaxed">{rec.reason}</div>
+                                <td className="px-6 py-6 text-[10px] text-slate-500 font-medium border-r border-slate-100/60 max-w-[200px]">
+                                  <div className="line-clamp-2 leading-relaxed italic">{rec.reason}</div>
                                 </td>
                                 <td className="px-4 py-4">
-                                  <div className="flex items-center justify-center space-x-3">
-                                    <button onClick={() => setDetailProject(rec.project)} className="p-2 text-slate-400 hover:text-blue-600 transition-all bg-white rounded-lg shadow-sm">
+                                  <div className="flex items-center justify-center space-x-2">
+                                    <button onClick={() => setDetailProject(rec.project)} className="p-2 text-slate-400 hover:text-blue-600 transition-all bg-white rounded-lg border border-slate-200 shadow-sm">
                                       <Eye size={14} />
                                     </button>
                                     {canEditExp && (
                                       <button 
                                         onClick={() => setSelectedProjects(prev => prev.find(p => p.id === rec.project.id) ? prev : [...prev, rec.project])} 
-                                        className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-md active:scale-95"
+                                        className="px-4 py-2 bg-slate-900 text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-sm active:scale-95"
                                       >
                                         引用
                                       </button>
@@ -953,43 +976,58 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                    </section>
                    <div className="h-px bg-slate-100 w-full"></div>
                    <section className="text-left pb-10">
-                      <div className="flex items-center justify-between mb-6 text-left"><div className="flex items-center italic text-left"><SearchCode size={24} className="text-slate-400 mr-3" /><h4 className="text-xs font-black text-slate-900 uppercase">全库业绩人工检索</h4></div><div className="relative group"><Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={14} /><input disabled={!canEditExp} value={projectSearch} onChange={e => setProjectSearch(e.target.value)} placeholder="检索名称/年份/建设单位..." className="pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl outline-none text-[11px] font-bold text-slate-700 w-80 focus:border-emerald-500 transition-all shadow-sm" /></div></div>
-                      <div className="overflow-x-auto border border-slate-200 rounded-[32px] bg-white shadow-sm overflow-hidden">
+                      <div className="flex items-center justify-between mb-6 text-left">
+                        <div className="flex items-center italic text-left">
+                          <SearchCode size={24} className="text-slate-400 mr-3" />
+                          <h4 className="text-xs font-black text-slate-900 uppercase">全库业绩人工检索</h4>
+                        </div>
+                        <div className="relative group">
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={14} />
+                          <input 
+                            disabled={!canEditExp} 
+                            value={projectSearch} 
+                            onChange={e => setProjectSearch(e.target.value)} 
+                            placeholder="检索名称/年份/建设单位..." 
+                            className="pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl outline-none text-[11px] font-bold text-slate-700 w-80 focus:border-emerald-500 transition-all shadow-sm" 
+                          />
+                        </div>
+                      </div>
+                      <div className="overflow-x-auto border border-slate-200 rounded-2xl bg-white shadow-sm overflow-hidden">
                         <table className="w-full text-left border-collapse">
-                          <thead className="bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest">
+                          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 text-[10px] font-black uppercase tracking-widest">
                             <tr>
-                              <th className="px-4 py-4 border-r border-slate-800">年份</th>
-                              <th className="px-4 py-4 border-r border-slate-800">类型</th>
-                              <th className="px-4 py-4 border-r border-slate-800">业绩名称</th>
-                              <th className="px-4 py-4 border-r border-slate-800">建设单位</th>
-                              <th className="px-4 py-4 border-r border-slate-800">地点</th>
-                              <th className="px-4 py-4 border-r border-slate-800 text-center">金额(W)</th>
-                              <th className="px-4 py-4 border-r border-slate-800">项目负责人</th>
-                              <th className="px-4 py-4 border-r border-slate-800">签订日期</th>
-                              <th className="px-4 py-4 border-r border-slate-800">合同状态</th>
-                              <th className="px-4 py-4 text-center">操作</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">年份</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">类型</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">业绩名称</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">建设单位</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">地点</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60 text-center">金额(W)</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">项目负责人</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">签订日期</th>
+                              <th className="px-6 py-6 border-r border-slate-200/60">合同状态</th>
+                              <th className="px-6 py-6 text-center">操作</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100">
                             {fullProjectPool.filter(p => p.projectName.includes(projectSearch)).map(p => (
                               <tr key={p.id} className="hover:bg-slate-50 transition-colors group">
-                                <td className="px-4 py-4 text-xs font-black text-slate-500 italic border-r border-slate-100">{p.contractYear}</td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-slate-100">{p.projectType}</td>
-                                <td className="px-4 py-4 text-xs font-black text-slate-900 italic border-r border-slate-100">{p.projectName}</td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-slate-100">{p.clientName}</td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-slate-100">{p.location}</td>
-                                <td className="px-4 py-4 text-xs font-black text-blue-600 italic border-r border-slate-100 text-center">{p.amount}W</td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-600 uppercase italic border-r border-slate-100">{p.leader}</td>
-                                <td className="px-4 py-4 text-[10px] font-bold text-slate-400 uppercase italic border-r border-slate-100">{p.signingDate}</td>
-                                <td className="px-4 py-4 border-r border-slate-100">
+                                <td className="px-4 py-4 text-xs font-bold text-slate-500 border-r border-slate-100/60">{p.contractYear}</td>
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">{p.projectType}</td>
+                                <td className="px-4 py-4 text-xs font-bold text-slate-900 border-r border-slate-100/60">{p.projectName}</td>
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">{p.clientName}</td>
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">{p.location}</td>
+                                <td className="px-4 py-4 text-xs font-bold text-blue-600 border-r border-slate-100/60 text-center">{p.amount}W</td>
+                                <td className="px-4 py-4 text-[10px] font-bold text-slate-600 uppercase border-r border-slate-100/60">{p.leader}</td>
+                                <td className="px-4 py-4 text-[10px] font-medium text-slate-400 uppercase border-r border-slate-100/60">{p.signingDate}</td>
+                                <td className="px-4 py-4 border-r border-slate-100/60">
                                   <span className={`px-2 py-0.5 rounded text-[8px] font-black uppercase italic ${p.contractStatus === '已完成' ? 'bg-emerald-100 text-emerald-600' : 'bg-blue-100 text-blue-600'}`}>
                                     {p.contractStatus}
                                   </span>
                                 </td>
                                 <td className="px-4 py-4">
-                                  <div className="flex items-center justify-center space-x-3">
-                                    <button onClick={() => setDetailProject(p)} className="p-2 text-slate-400 hover:text-blue-600 transition-all bg-slate-50 rounded-lg"><Eye size={14} /></button>
-                                    {canEditExp && (<button onClick={() => setSelectedProjects(prev => prev.find(i => i.id === p.id) ? prev : [...prev, p])} className="px-4 py-2 bg-slate-900 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-md">选用</button>)}
+                                  <div className="flex items-center justify-center space-x-2">
+                                    <button onClick={() => setDetailProject(p)} className="p-2 text-slate-400 hover:text-blue-600 transition-all bg-white rounded-lg border border-slate-200 shadow-sm"><Eye size={14} /></button>
+                                    {canEditExp && (<button onClick={() => setSelectedProjects(prev => prev.find(i => i.id === p.id) ? prev : [...prev, p])} className="px-4 py-2 bg-slate-900 text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-black transition-all shadow-sm active:scale-95">选用</button>)}
                                   </div>
                                 </td>
                               </tr>
@@ -997,52 +1035,100 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                           </tbody>
                         </table>
                       </div>
-                   </section>
-                </div>
-                <div className="w-[450px] flex flex-col border-l border-slate-100 shrink-0 overflow-y-auto custom-scrollbar-dark bg-slate-950">
-                  <div className="h-[500px] shrink-0 bg-slate-950 flex flex-col p-8 text-left relative overflow-hidden border-b border-white/5">
-                    <div className="flex items-center justify-between mb-10 text-white italic relative z-10 text-left"><div className="flex items-center italic"><DatabaseZap size={22} className="text-emerald-400 mr-3" /><div><h4 className="text-sm font-black uppercase tracking-tighter">本工程支撑业绩池</h4></div></div><span className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-slate-400 text-[10px] font-black italic tracking-widest">{selectedProjects.length} 项已入选</span></div>
-                    <div className="flex-1 space-y-4 overflow-y-auto custom-scrollbar-dark pr-2 relative z-10 text-left">
-                        {selectedProjects.map((p, idx) => (
-                          <div key={idx} className="p-5 bg-white/5 border border-white/10 rounded-[32px] flex items-center justify-between group text-white text-left animate-in slide-in-from-right-4 transition-all">
-                             <div className="flex items-center space-x-4 min-w-0 flex-1 text-left"><div className="w-12 h-12 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-black text-sm shrink-0 shadow-lg">{idx + 1}</div><div className="text-left min-w-0"><p className="text-sm font-black italic truncate leading-none mb-2">{p.projectName}</p><p className="text-[9px] text-slate-500 font-black uppercase italic tracking-tighter">{p.amount}W · {p.contractYear}年</p></div></div>
-                             <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-all"><button onClick={() => setDetailProject(p)} className="p-2.5 text-slate-500 hover:text-white"><Maximize2 size={16}/></button>{canEditExp && (<button onClick={() => setSelectedProjects(selectedProjects.filter((_, i) => i !== idx))} className="p-2.5 text-slate-500 hover:text-red-400 transition-all"><Trash2 size={16} /></button>)}</div>
-                          </div>
-                        ))}
+                   </section>                </div>
+                <div className="w-[400px] flex flex-col shrink-0 bg-slate-50 border-l border-slate-200 p-6 gap-6 overflow-y-auto no-scrollbar">
+                  {/* 构件 1: 本工程支撑业绩池 */}
+                  <div className="flex-[1.2] min-h-[400px] bg-slate-950 rounded-[32px] shadow-2xl flex flex-col overflow-hidden border border-white/5">
+                    <div className="flex flex-col p-6 text-left relative overflow-hidden h-full">
+                      <div className="flex items-center justify-between mb-6 text-white italic relative z-10 text-left">
+                        <div className="flex items-center italic">
+                          <DatabaseZap size={20} className="text-emerald-400 mr-3" />
+                          <div><h4 className="text-sm font-black uppercase tracking-tighter">本工程支撑业绩池</h4></div>
+                        </div>
+                        <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-lg text-slate-400 text-[10px] font-black italic tracking-widest">{selectedProjects.length} 项已入选</span>
+                      </div>
+                      <div className="flex-1 space-y-3 overflow-y-auto no-scrollbar pr-2 relative z-10 text-left">
+                          {selectedProjects.length === 0 ? (
+                            <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-4 opacity-50">
+                              <Briefcase size={40} strokeWidth={1} />
+                              <p className="text-[10px] font-bold uppercase tracking-widest">暂未指派支撑业绩</p>
+                            </div>
+                          ) : (
+                            selectedProjects.map((p, idx) => (
+                              <div key={idx} className="p-4 bg-white/5 border border-white/10 rounded-[24px] flex items-center justify-between group text-white text-left animate-in slide-in-from-right-4 transition-all">
+                                 <div className="flex items-center space-x-4 min-w-0 flex-1 text-left">
+                                   <div className="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-black text-sm shrink-0 shadow-lg">{idx + 1}</div>
+                                   <div className="text-left min-w-0">
+                                     <p className="text-sm font-black italic truncate leading-none mb-1.5">{p.projectName}</p>
+                                     <p className="text-[9px] text-slate-500 font-black uppercase italic tracking-tighter">{p.amount}W · {p.contractYear}年</p>
+                                   </div>
+                                 </div>
+                                 <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-all">
+                                   <button onClick={() => setDetailProject(p)} className="p-2 text-slate-500 hover:text-white"><Maximize2 size={14}/></button>
+                                   {canEditExp && (<button onClick={() => setSelectedProjects(selectedProjects.filter((_, i) => i !== idx))} className="p-2 text-slate-500 hover:text-red-400 transition-all"><Trash2 size={14} /></button>)}
+                                 </div>
+                              </div>
+                            ))
+                          )}
+                      </div>
                     </div>
                   </div>
 
-                  {/* 新增：业绩二次筛选 AI 对话框 */}
-                  <div className="h-[400px] shrink-0 flex flex-col bg-slate-900 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/10 to-transparent pointer-events-none" />
-                    <div className="px-6 py-4 border-b border-white/5 bg-slate-800/50 backdrop-blur-xl flex items-center justify-between relative z-10">
+                  {/* 构件 2: 业绩筛选助理 */}
+                  <div className="flex-1 min-h-[400px] bg-slate-950 rounded-[32px] shadow-2xl flex flex-col overflow-hidden border border-white/5 relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent pointer-events-none" />
+                    <div className="px-6 py-4 bg-slate-800/30 backdrop-blur-xl flex items-center justify-between relative z-10">
                       <div className="flex items-center space-x-3">
-                        <Bot size={18} className="text-emerald-400"/>
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-white italic">GridGPT 业绩筛选助理</h4>
+                        <div className="w-8 h-8 rounded-lg bg-emerald-600/20 flex items-center justify-center border border-emerald-500/30">
+                          <Bot size={16} className="text-emerald-400"/>
+                        </div>
+                        <div>
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-white italic">GridGPT 业绩筛选助理</h4>
+                          <p className="text-[8px] text-emerald-400/60 font-bold uppercase tracking-tighter">AI-Powered Selection Engine</p>
+                        </div>
                       </div>
                       {isAiRecommending && <div className="flex items-center space-x-1 animate-pulse"><span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span></div>}
                     </div>
-                    <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar-dark relative z-10">
-                      {expAiChatMessages.map((msg, i) => (
-                        <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-1`}>
-                          <div className={`max-w-[85%] p-4 rounded-2xl text-[10px] leading-relaxed shadow-lg ${msg.role === 'user' ? 'bg-emerald-600 text-white rounded-tr-none font-bold' : 'bg-white/5 text-slate-300 border border-white/10 rounded-tl-none italic font-medium'}`}>
-                            {msg.text}
+                    <div className="flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar relative z-10">
+                      {expAiChatMessages.length === 0 ? (
+                        <div className="h-full flex flex-col items-center justify-center text-center space-y-4 px-6">
+                          <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                            <Sparkles size={20} className="text-emerald-400 opacity-50" />
+                          </div>
+                          <p className="text-[10px] text-slate-500 font-medium leading-relaxed italic">
+                            您可以输入具体的要求来进一步筛选业绩，例如：<br/>
+                            <span className="text-emerald-400/70">“需要金额大于500万的项目”</span>
+                          </p>
+                        </div>
+                      ) : (
+                        expAiChatMessages.map((msg, i) => (
+                          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2`}>
+                            <div className={`max-w-[90%] p-4 rounded-2xl text-[10px] leading-relaxed shadow-xl ${msg.role === 'user' ? 'bg-emerald-600 text-white rounded-tr-none font-bold' : 'bg-slate-800/80 text-slate-300 border border-white/10 rounded-tl-none italic font-medium'}`}>
+                              {msg.text}
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      {isAiRecommending && (
+                        <div className="flex justify-start animate-in fade-in">
+                          <div className="bg-slate-800/80 border border-white/10 p-4 rounded-2xl rounded-tl-none flex items-center space-x-3">
+                            <RefreshCw size={14} className="text-emerald-400 animate-spin" />
+                            <span className="text-[10px] text-emerald-400 font-black uppercase italic tracking-widest">正在深度分析...</span>
                           </div>
                         </div>
-                      ))}
-                      {isAiRecommending && <div className="flex justify-start"><div className="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-none"><RefreshCw size={14} className="text-emerald-400 animate-spin" /></div></div>}
+                      )}
                     </div>
-                    <div className="p-4 bg-slate-950/50 border-t border-white/5 relative z-10">
-                      <div className="flex items-center space-x-2 bg-white/5 border border-white/10 rounded-xl p-1.5 focus-within:border-emerald-500/50 transition-all">
+                    <div className="p-6 bg-slate-950/80 border-t border-white/10 relative z-10">
+                      <div className="flex items-center space-x-3 bg-white/5 border border-white/10 rounded-2xl p-2 focus-within:border-emerald-500/50 focus-within:bg-white/10 transition-all shadow-inner">
                         <input 
                           value={expAiChatInput} 
                           onChange={e => setExpAiChatInput(e.target.value)} 
                           onKeyDown={e => e.key === 'Enter' && handleExpAiChatSend()}
-                          placeholder="输入业绩筛选要求（如：金额>500万）..." 
+                          placeholder="输入筛选指令..." 
                           className="flex-1 bg-transparent border-none outline-none text-white text-[10px] px-3 font-medium placeholder:text-slate-700" 
                         />
-                        <button onClick={handleExpAiChatSend} className="bg-emerald-600 p-2 text-white rounded-lg hover:bg-emerald-500 shadow-lg active:scale-90 transition-all">
-                          <Send size={14} />
+                        <button onClick={handleExpAiChatSend} className="bg-emerald-600 p-3 text-white rounded-xl hover:bg-emerald-500 shadow-lg active:scale-90 transition-all flex items-center justify-center">
+                          <Send size={16} />
                         </button>
                       </div>
                     </div>
@@ -1149,6 +1235,8 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
         .custom-scrollbar-dark::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 20px; }
         .custom-scrollbar-main::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar-main::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   );
