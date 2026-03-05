@@ -555,13 +555,14 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
 
       <main className="flex-1 flex overflow-hidden relative">
         {phase === 'hub' && (
-          <div className="flex-1 grid grid-cols-3 gap-10 items-center p-10 animate-in fade-in duration-700">
+          <div className="flex-1 overflow-y-auto custom-scrollbar-main p-10 animate-in fade-in duration-700">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-stretch">
              {tasks.map(task => {
                const isSubmitted = task.status === PhaseStatus.SUBMITTED;
                const isCompleted = task.status === PhaseStatus.COMPLETED;
                
                return (
-                <div key={task.id} className={`relative h-[420px] rounded-[64px] border-2 transition-all flex flex-col items-center justify-center p-12 text-center group bg-white ${isSubmitted || isCompleted ? 'border-emerald-100 shadow-xl' : 'border-slate-50 shadow-sm'}`}>
+                <div key={task.id} className={`relative min-h-[420px] rounded-[64px] border-2 transition-all flex flex-col items-center justify-center p-12 text-center group bg-white ${isSubmitted || isCompleted ? 'border-emerald-100 shadow-xl' : 'border-slate-50 shadow-sm'}`}>
                     <div className={`p-8 rounded-[40px] mb-8 transition-transform group-hover:scale-110 shadow-lg ${isSubmitted || isCompleted ? 'bg-emerald-500 text-white' : 'bg-slate-900 text-white'}`}><task.icon size={48} /></div>
                     <h4 className="text-2xl font-black text-slate-900 tracking-tight italic uppercase">{task.name}</h4>
                     <div className="mt-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-500 text-[10px] font-black uppercase tracking-widest">
@@ -599,6 +600,7 @@ const BidWorkspaceView: React.FC<BidWorkspaceViewProps> = ({ currentTask, curren
                 </div>
                );
              })}
+            </div>
           </div>
         )}
 
